@@ -2,108 +2,71 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Xufine – Blue Dragon</title>
+    <title>Xufine – Der Blaue Drache</title>
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
         body {
             margin: 0;
             height: 100vh;
-            background: radial-gradient(circle at top, #050816 0%, #000000 55%, #02040a 100%);
-            color: #e5e7eb;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at 50% 20%, #0a0f1f 0%, #02040a 70%, #000000 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            font-family: "Segoe UI", sans-serif;
+            color: #dbeafe;
         }
 
-        .container {
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            padding: 20px 30px;
+        /* Magisches Portal */
+        .portal {
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(59,130,246,0.25), rgba(0,0,0,0) 70%);
+            box-shadow: 0 0 120px rgba(59,130,246,0.35);
+            filter: blur(2px);
+            opacity: 0;
+            transform: scale(0.6);
+            transition: all 1.8s ease-out;
         }
 
-        .title {
-            font-size: 42px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: #60a5fa;
-            margin-bottom: 10px;
+        .portal.visible {
+            opacity: 1;
+            transform: scale(1);
         }
 
-        .subtitle {
-            font-size: 16px;
-            color: #9ca3af;
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 12px 26px;
-            border-radius: 999px;
-            border: 1px solid #1d4ed8;
-            color: #e5e7eb;
-            background: rgba(15, 23, 42, 0.8);
-            cursor: pointer;
-            font-size: 14px;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            transition: all 0.2s ease;
-        }
-
-        .btn:hover {
-            background: #1d4ed8;
-            box-shadow: 0 0 25px rgba(37, 99, 235, 0.7);
-        }
-
-        .contact {
-            margin-top: 25px;
-            font-size: 14px;
-            color: #9ca3af;
-        }
-
-        .contact span {
-            color: #e5e7eb;
-        }
-
+        /* Drachen-Silhouette */
         .dragon {
             position: absolute;
             width: 260px;
             height: 260px;
             border-radius: 50%;
-            background: radial-gradient(circle at 30% 20%, #bfdbfe 0%, #1d4ed8 35%, #020617 75%);
+            background: radial-gradient(circle at 40% 30%, #c7d2fe 0%, #3b82f6 35%, #1e3a8a 80%);
             box-shadow:
-                0 0 60px rgba(59, 130, 246, 0.9),
-                0 0 140px rgba(37, 99, 235, 0.8);
+                0 0 60px rgba(59,130,246,0.8),
+                0 0 140px rgba(37,99,235,0.6);
             display: flex;
             justify-content: center;
             align-items: center;
             opacity: 0;
-            transform: scale(0.4) translateY(40px);
-            transition: all 0.6s ease-out;
-            z-index: 1;
+            transform: translateY(40px) scale(0.7);
+            transition: all 1.4s ease-out;
         }
 
         .dragon.visible {
             opacity: 1;
-            transform: scale(1) translateY(0);
+            transform: translateY(0) scale(1);
         }
 
+        /* Gesicht */
         .dragon-inner {
             width: 70%;
             height: 70%;
             border-radius: 50%;
-            border: 2px solid rgba(191, 219, 254, 0.6);
+            border: 2px solid rgba(191,219,254,0.4);
             position: relative;
-            overflow: hidden;
         }
 
-        /* Stilisiertes Drachen-Gesicht (minimalistisch) */
         .eye {
             position: absolute;
             width: 18px;
@@ -111,7 +74,7 @@
             border-radius: 50%;
             background: #0b1120;
             top: 38%;
-            box-shadow: 0 0 12px rgba(15, 23, 42, 0.9);
+            box-shadow: 0 0 12px rgba(15,23,42,0.9);
         }
 
         .eye::after {
@@ -123,48 +86,37 @@
             background: #bfdbfe;
             top: 4px;
             left: 6px;
-            box-shadow: 0 0 10px rgba(191, 219, 254, 0.9);
+            box-shadow: 0 0 10px rgba(191,219,254,0.9);
         }
 
-        .eye.left {
-            left: 26%;
-        }
-
-        .eye.right {
-            right: 26%;
-        }
+        .eye.left { left: 26%; }
+        .eye.right { right: 26%; }
 
         .horn {
             position: absolute;
             width: 26px;
             height: 60px;
             border-radius: 999px;
-            background: linear-gradient(to top, #1d4ed8, #e5e7eb);
+            background: linear-gradient(to top, #3b82f6, #e0e7ff);
             top: -8%;
-            box-shadow: 0 0 18px rgba(191, 219, 254, 0.7);
+            box-shadow: 0 0 18px rgba(191,219,254,0.7);
         }
 
-        .horn.left {
-            left: 18%;
-            transform: rotate(-18deg);
-        }
-
-        .horn.right {
-            right: 18%;
-            transform: rotate(18deg);
-        }
+        .horn.left { left: 18%; transform: rotate(-18deg); }
+        .horn.right { right: 18%; transform: rotate(18deg); }
 
         .mouth {
             position: absolute;
             width: 60%;
             height: 40px;
             border-radius: 0 0 999px 999px;
-            border-bottom: 3px solid rgba(15, 23, 42, 0.9);
+            border-bottom: 3px solid rgba(15,23,42,0.9);
             bottom: 18%;
             left: 50%;
             transform: translateX(-50%);
         }
 
+        /* Feuer */
         .flame {
             position: absolute;
             width: 18px;
@@ -175,7 +127,6 @@
             left: 50%;
             transform: translateX(-50%) scaleY(0);
             transform-origin: top;
-            filter: blur(0.4px);
             opacity: 0;
             transition: all 0.35s ease-out;
         }
@@ -185,94 +136,88 @@
             opacity: 1;
         }
 
-        .glow-orb {
+        /* Textbereich */
+        .content {
             position: absolute;
-            width: 420px;
-            height: 420px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(37, 99, 235, 0.18), transparent 70%);
-            filter: blur(2px);
-            z-index: 0;
+            bottom: 40px;
+            text-align: center;
+            z-index: 10;
         }
 
-        .hint {
-            margin-top: 14px;
-            font-size: 12px;
+        .title {
+            font-size: 42px;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
-            letter-spacing: 0.18em;
-            color: #6b7280;
+            color: #93c5fd;
+            margin-bottom: 12px;
         }
 
-        .hint span {
-            color: #93c5fd;
+        .subtitle {
+            font-size: 16px;
+            color: #9ca3af;
+            margin-bottom: 28px;
+        }
+
+        .contact {
+            margin-top: 20px;
+            font-size: 15px;
+            color: #cbd5e1;
+            line-height: 1.6em;
+        }
+
+        .contact span {
+            color: #e0e7ff;
         }
     </style>
 </head>
+
 <body>
-    <div class="glow-orb"></div>
+
+    <div class="portal" id="portal"></div>
 
     <div class="dragon" id="dragon">
         <div class="dragon-inner">
             <div class="horn left"></div>
             <div class="horn right"></div>
             <div class="eye left"></div>
-            <div the class="eye right"></div>
+            <div class="eye right"></div>
             <div class="mouth"></div>
             <div class="flame" id="flame"></div>
         </div>
     </div>
 
-    <div class="container">
+    <div class="content">
         <div class="title">XUFINE</div>
-        <div class="subtitle">
-            Der blaue Drache wacht über diese Seite.<br>
-            Berühre den Bildschirm, um ihn zu wecken.
-        </div>
-
-        <button class="btn" id="summonBtn">Blauen Drachen beschwören</button>
+        <div class="subtitle">Der blaue Drache erwacht aus dem Portal</div>
 
         <div class="contact">
-            Kontakt: <span>info@xufine.com</span><br>
+            Kontakt:<br>
+            <span>info@xufine.com</span><br>
             Instagram: <span>@xufine</span>
-        </div>
-
-        <div class="hint">
-            <span>Klick</span> oder <span>Tap</span> irgendwo auf die Seite
         </div>
     </div>
 
     <script>
+        const portal = document.getElementById("portal");
         const dragon = document.getElementById("dragon");
         const flame = document.getElementById("flame");
-        const summonBtn = document.getElementById("summonBtn");
 
-        function showDragon() {
+        // Portal erscheint zuerst
+        setTimeout(() => {
+            portal.classList.add("visible");
+        }, 300);
+
+        // Drache erscheint danach
+        setTimeout(() => {
             dragon.classList.add("visible");
-            setTimeout(() => {
-                flame.classList.add("visible");
-                setTimeout(() => {
-                    flame.classList.remove("visible");
-                }, 700);
-            }, 450);
-        }
+        }, 1200);
 
-        // Beim Laden leicht verzögert erscheinen lassen
-        window.addEventListener("load", () => {
-            setTimeout(showDragon, 600);
-        });
-
-        // Klick / Tap irgendwo
-        document.body.addEventListener("click", (e) => {
-            // Button extra behandeln, damit es sich „magisch“ anfühlt
-            if (e.target === summonBtn) {
-                showDragon();
-            } else {
-                flame.classList.add("visible");
-                setTimeout(() => {
-                    flame.classList.remove("visible");
-                }, 600);
-            }
+        // Feuerstoß beim Klick
+        document.body.addEventListener("click", () => {
+            flame.classList.add("visible");
+            setTimeout(() => flame.classList.remove("visible"), 600);
         });
     </script>
+
 </body>
 </html>
