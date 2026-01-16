@@ -16,7 +16,6 @@
             color: #f5f3ff;
         }
 
-        /* Portal */
         .portal {
             position: absolute;
             width: 420px;
@@ -35,7 +34,6 @@
             transform: scale(1);
         }
 
-        /* Drache */
         .dragon {
             position: absolute;
             width: 260px;
@@ -115,7 +113,6 @@
             transform: translateX(-50%);
         }
 
-        /* Feuer */
         .flame {
             position: absolute;
             width: 18px;
@@ -135,7 +132,6 @@
             opacity: 1;
         }
 
-        /* Textbereich – jetzt gut lesbar */
         .content {
             position: absolute;
             bottom: 0;
@@ -159,26 +155,6 @@
             font-size: 15px;
             color: #d1d5db;
             margin-bottom: 22px;
-        }
-
-        .btn {
-            display: inline-block;
-            margin-top: 6px;
-            padding: 11px 26px;
-            border-radius: 999px;
-            border: 1px solid #a855f7;
-            color: #f5f3ff;
-            background: rgba(24,24,27,0.8);
-            cursor: pointer;
-            font-size: 13px;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            transition: all 0.2s ease;
-        }
-
-        .btn:hover {
-            background: #a855f7;
-            box-shadow: 0 0 25px rgba(168,85,247,0.8);
         }
 
         .contact {
@@ -213,11 +189,9 @@
         <div class="title">XUFINE</div>
         <div class="subtitle">Der lila Drache wacht über dieses Reich</div>
 
-        <button class="btn" id="summonBtn">Drachen beschwören</button>
-
         <div class="contact">
             Kontakt:<br>
-            <span></span><br>
+            <span>berkay.sa@outlook.de</span><br>
             Instagram: <span>@0berkay2</span>
         </div>
     </div>
@@ -226,20 +200,22 @@
         const portal = document.getElementById("portal");
         const dragon = document.getElementById("dragon");
         const flame = document.getElementById("flame");
-        const summonBtn = document.getElementById("summonBtn");
 
-        function summonDragon() {
+        // Drache erscheint automatisch nach 1 Sekunde
+        setTimeout(() => {
             portal.classList.add("visible");
+
             setTimeout(() => {
                 dragon.classList.add("visible");
+
                 setTimeout(() => {
                     flame.classList.add("visible");
                     setTimeout(() => flame.classList.remove("visible"), 650);
                 }, 500);
-            }, 500);
-        }
 
-        summonBtn.addEventListener("click", summonDragon);
+            }, 500);
+
+        }, 1000);
     </script>
 
 </body>
