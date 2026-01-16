@@ -16,6 +16,13 @@
             color: #f5f3ff;
         }
 
+        /* Schweb-Animation */
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-18px) scale(1.02); }
+            100% { transform: translateY(0) scale(1); }
+        }
+
         .portal {
             position: absolute;
             width: 420px;
@@ -54,6 +61,7 @@
         .dragon.visible {
             opacity: 1;
             transform: translateY(0) scale(1);
+            animation: float 4s ease-in-out infinite;
         }
 
         .dragon-inner {
@@ -201,7 +209,7 @@
         const dragon = document.getElementById("dragon");
         const flame = document.getElementById("flame");
 
-        // Drache erscheint automatisch nach 1 Sekunde
+        // Automatisches Erscheinen nach 1 Sekunde
         setTimeout(() => {
             portal.classList.add("visible");
 
